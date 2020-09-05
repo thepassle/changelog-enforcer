@@ -20,7 +20,7 @@ module.exports.enforce = async function() {
                 }
             }
 
-            await exec.exec('git', ['show', `master:package.json`], options)
+            await exec.exec('git', ['show', `origin/master:package.json`], options)
             const masterVersion = JSON.parse(masterPackageJson).version;
 
             let curPackageJson = ''
