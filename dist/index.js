@@ -23008,58 +23008,6 @@ exports.Deprecation = Deprecation;
 
 /***/ }),
 
-/***/ 679:
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const core = __webpack_require__(186)
-const github = __webpack_require__(438)
-const exec = __webpack_require__(514)
-
-module.exports.enforce = async function() {
-    try {
-        const skipLabel = core.getInput('skipLabel')
-        core.info(`Skip Label: ${skipLabel}`)
-
-        const pullRequest = github.context.payload.pull_request
-        const labelNames = pullRequest.labels.map(l => l.name)
-        const headRef = pullRequest.head.ref
-    console.log(pullRequest.head.ref);
-    console.log(pullRequest.base.ref);
-        if (!labelNames.includes(skipLabel)) {
-            let masterPackageJson = ''
-            const options = {}
-            options.listeners = {
-                stdout: (data) => {
-                    masterPackageJson += data.toString();
-                }
-            }
-
-            await exec.exec('git', ['show', `origin/master:package.json`], options)
-            const masterVersion = JSON.parse(masterPackageJson).version;
-    console.log(masterVersion)
-            let curPackageJson = ''
-            const options2 = {}
-            options2.listeners = {
-                stdout: (data) => {
-                    curPackageJson += data.toString();
-                }
-            }
-
-            await exec.exec('cat', ['package.json'], options2)
-            const curVersion = JSON.parse(curPackageJson).version;
-            console.log(curVersion)
-            if(masterVersion === curVersion) {
-                throw new Error('No update to package.json version!');
-            }
-        }
-    } catch(error) {
-        core.setFailed(error.message);
-    }
-};
-
-
-/***/ }),
-
 /***/ 682:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -26228,11 +26176,11 @@ function processEmit (ev, arg) {
 /***/ 932:
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-const changelogEnforcer = __webpack_require__(679)
+const packageJson = __webpack_require__(965)
 
-// Looks for a label with the name from 
+// Looks for a label with the name from
 async function run() {
-  changelogEnforcer.enforce();
+  packageJson.enforce();
 }
 
 run()
@@ -26493,6 +26441,57 @@ function isUnixExecutable(stats) {
         ((stats.mode & 64) > 0 && stats.uid === process.getuid()));
 }
 //# sourceMappingURL=io-util.js.map
+
+/***/ }),
+
+/***/ 965:
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const core = __webpack_require__(186)
+const github = __webpack_require__(438)
+const exec = __webpack_require__(514)
+
+module.exports.enforce = async function() {
+    try {
+        const skipLabel = core.getInput('skipLabel')
+        core.info(`Skip Label: ${skipLabel}`)
+
+        const pullRequest = github.context.payload.pull_request
+        const labelNames = pullRequest.labels.map(l => l.name)
+        const headRef = pullRequest.head.ref
+
+        if (!labelNames.includes(skipLabel)) {
+            let masterPackageJson = ''
+            const options = {}
+            options.listeners = {
+                stdout: (data) => {
+                    masterPackageJson += data.toString();
+                }
+            }
+
+            await exec.exec('git', ['show', `origin/master:package.json`], options)
+            const masterVersion = JSON.parse(masterPackageJson).version;
+            console.log('Master version:', masterVersion)
+            let curPackageJson = ''
+            const options2 = {}
+            options2.listeners = {
+                stdout: (data) => {
+                    curPackageJson += data.toString();
+                }
+            }
+
+            await exec.exec('cat', ['package.json'], options2)
+            const curVersion = JSON.parse(curPackageJson).version;
+            console.log('Current version:', curVersion)
+            if(masterVersion === curVersion) {
+                throw new Error('No update to package.json version!');
+            }
+        }
+    } catch(error) {
+        core.setFailed(error.message);
+    }
+};
+
 
 /***/ }),
 

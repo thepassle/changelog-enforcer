@@ -4,11 +4,11 @@
   "description": "JavaScript Action Template",
   "main": "index.js",
   "scripts": {
-    "package": "ncc build index.js -o dist"
+    "build": "ncc build index.js -o dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dangoslen/changelog-enforcer.git"
+    "url": "git+https://github.com/thepassle/package-json-enforcer.git"
   },
   "keywords": [
     "GitHub",
@@ -19,12 +19,9 @@
   "author": "Pascal Schilp",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dangoslen/changelog-enforcerissues"
+    "url": "https://github.com/thepassle/package-json-enforcerissues"
   },
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "homepage": "https://github.com/dangoslen/changelog-enforcer#readme",
+  "homepage": "https://github.com/thepassle/package-json-enforcer#readme",
   "dependencies": {
     "@actions/core": "^1.1.1",
     "@actions/exec": "^1.0.3",
