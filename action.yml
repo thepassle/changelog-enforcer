@@ -1,18 +1,14 @@
-name: 'Changelog Enforcer'
-author: '@dangoslen'
-description: 'Enforces a repository changelog to be kept up to date.'
+name: 'Package.json version bump enforcer'
+author: '@thepassle'
+description: 'Enforces a version bump in the package.json'
 inputs:
-  changeLogPath:  # id of input
-    description: 'Path to the changelog file relative to the repository'
-    required: true
-    default: 'CHANGELOG.md'
   skipLabel:
     description: 'Name of the label used to skip enforcing a changelog change'
     required: true
     default: 'Skip-Changelog'
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'index.js'
 branding:
-  icon: 'check-square'  
+  icon: 'check-square'
   color: 'orange'
