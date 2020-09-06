@@ -6,6 +6,9 @@ inputs:
     description: 'Name of the label used to skip enforcing a changelog change'
     required: true
     default: 'Skip-Changelog'
+  github-token:
+    description: 'Pass in secrets.GITHUB_TOKEN'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
