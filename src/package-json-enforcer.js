@@ -18,6 +18,10 @@ module.exports.enforce = async function () {
 
       const postComment = createPoster();
 
+      console.log('master version:', masterVersion);
+      console.log('current version:', masterVersion);
+      console.log('changelog updated:', changelogUpdated);
+
       if(!changelogUpdated && masterVersion === curVersion) {
         postComment('Please update the `CHANGELOG.md` and bump the version in the `package.json`.');
         throw new Error('Changelog and package.json version not updated!');
@@ -39,7 +43,7 @@ module.exports.enforce = async function () {
 };
 
 function createPoster() {
-  const githubToken = core.getInput('GITHUB_TOKEN');
+  const githubToken = core.getInput('github-token');
   const pullRequestNumber = github.context.payload.pull_request.number;
   const octokit = new github.GitHub(githubToken);
 

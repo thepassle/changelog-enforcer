@@ -20,7 +20,7 @@ jobs:
           fetch-depth: '0'
       - uses: thepassle/changelog-enforcer@0.0.6
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Inputs / Properties
