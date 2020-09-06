@@ -1,5 +1,5 @@
 ## Package Json Enforcer
-The purpose of this action is to enforce a change to the version in the `package.json`
+The purpose of this action is to enforce a change to the version in the `package.json`, and a changelog entry in `CHANGELOG.md`
 
 ### Usage
 To use, follow the typical GitHub Action `uses` syntax. 

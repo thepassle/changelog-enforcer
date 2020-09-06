@@ -19,7 +19,7 @@ module.exports.enforce = async function () {
       const postComment = createPoster();
 
       console.log('master version:', masterVersion);
-      console.log('current version:', masterVersion);
+      console.log('current version:', curVersion);
       console.log('changelog updated:', changelogUpdated);
 
       if(!changelogUpdated && masterVersion === curVersion) {
